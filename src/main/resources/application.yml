@@ -1,0 +1,38 @@
+server:
+  port: 9091
+  context-path: /api
+
+spring:
+  application:
+    name: wutong-payment
+  dubbo:
+    scan: com.wutong
+    registry:
+      address: zookeeper://192.168.2.193:2181
+    application:
+      name: wutong-payment
+    module:
+      default: false
+  session:
+    store-type: redis
+  redis:
+    host: 192.168.2.193
+    port: 6379
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  http: # 开启encodingFilter，设置字符集
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    multipart: # 文件上传限制
+      max-file-size: 100KB
+      max-request-size: 1MB
+
+logging:
+  level:
+    root: info
+
+
