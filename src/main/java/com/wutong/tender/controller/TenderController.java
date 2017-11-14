@@ -22,14 +22,14 @@ public class TenderController {
     @Reference
     private TenderService tenderService;
 
-    @GetMapping("/list")
-    @AuthLogin(validate = false) 
-    public ResponseResult<List<Tender>> listAll() {
-        ResponseResult<List<Tender>> responseResult = new ResponseResult<>();
-        List<Tender> tenders = tenderService.selectTender();
-        responseResult.addData(tenders);
-        return responseResult;
-    }
+//    @GetMapping("/list")
+//    @AuthLogin(validate = false)
+//    public ResponseResult<List<Tender>> listAll() {
+//        ResponseResult<List<Tender>> responseResult = new ResponseResult<>();
+//        List<Tender> tenders = tenderService.selectTender();
+//        responseResult.addData(tenders);
+//        return responseResult;
+//    }
 
     @GetMapping("/selectByName")
     public ResponseResult selectByPrimaryName(String projectName) {
