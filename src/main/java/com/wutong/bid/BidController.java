@@ -87,6 +87,28 @@ public class BidController {
         return responseResult;
     }
 
+
+    /**
+     * 订单付款成功
+     */
+    @PostMapping("/placeOrder")
+    @AuthLogin
+    public ResponseResult orderSuccess (Map orderMap) {
+        Bid_order bid_order = new Bid_order();
+        try {
+            BeanUtils.populate(bid_order,orderMap);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        int i = bidService.updateOrder(bid_order);
+        Map map= new HashMap();
+        map.put("upStatus",i);
+        ResponseResult result = new ResponseResult();
+        result.addData(orderMap);
+        return result;
+    }
     /**
      * 我的投标查询
      */
