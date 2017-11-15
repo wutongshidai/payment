@@ -2,6 +2,8 @@ package com.wutong.tender.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.parasol.core.Enum.TenderStatusEnum;
+import com.parasol.core.bid.Bid_order;
+import com.parasol.core.service.BidService;
 import com.parasol.core.service.TenderService;
 import com.parasol.core.tender.Tender;
 import com.wutong.framework.core.web.auth.aop.annotation.AuthLogin;
@@ -21,6 +23,8 @@ public class TenderController {
 
     @Reference
     private TenderService tenderService;
+    @Reference
+    private BidService bidService;
 
 //    @GetMapping("/list")
 //    @AuthLogin(validate = false)
@@ -40,15 +44,9 @@ public class TenderController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd ");
         String date = formatter.format(tender.getEndDate());//格式化数据
         result.put("endDate", date);
-        //测试是否截断文件路径
-        String suffix = tender.getTenderFile().substring(tender.getTenderFile().lastIndexOf(System.getProperty("file.separator")) + 1);
-        System.out.println(suffix);
-        result.put("suffix", suffix);
-        if (tender.getBidFile() != null) {
-            String suffixl = tender.getBidFile().substring(tender.getBidFile().lastIndexOf(System.getProperty("file.separator")) + 1);
-            System.out.println(suffixl);
-            result.put("suffixl", suffixl);
-        }
+        Integer id = tender.getId();
+        List<Bid_order> list = bidService.selectOrderByTid(id);
+        result.put("olist",list);
 
         TenderStatusEnum code = TenderStatusEnum.getByCode(tender.getClassification());
 

@@ -54,7 +54,7 @@ public class BidController {
         try {
             Bid_order bidOrder = new Bid_order();
             Bid_info bidInfo = new Bid_info();
-            Integer bid_infoId =(Integer) orderMap.get("bid_infoId");
+            Integer bid_infoId =(Integer) orderMap.get("bidInfoid");
             Integer infoId = null;
             // 投标信息表id为空，没有信息。新建信息数据
             BeanUtils.populate(bidInfo, orderMap);
@@ -63,7 +63,8 @@ public class BidController {
                 infoId = bidService.createInfo(bidInfo);
             }else {  // 有投标信息表ID 更新数据
                 infoId = bid_infoId;
-               int i =  bidService.updateInfo(bidInfo);
+                bidInfo.setUpdatetime(new Date());
+                int i =  bidService.updateInfo(bidInfo);
             }
             Integer tenderId = (Integer)orderMap.get("tenderId");
             Tender tender = tenderService.selectByPrimaryKey(tenderId);
