@@ -8,7 +8,7 @@ spring:
   dubbo:
     scan: com.wutong
     registry:
-      address: zookeeper://192.168.2.193:2181
+      address: zookeeper://192.168.3.189:2182
     application:
       name: wutong-payment
     module:
@@ -16,7 +16,7 @@ spring:
   session:
     store-type: redis
   redis:
-    host: 192.168.2.193
+    host: 192.168.3.189
     port: 6379
   mvc:
     throw-exception-if-no-handler-found: true

@@ -58,15 +58,6 @@
     </dependencies>
 
     <build>
-    <resources>
-    	<resource>
-    		<directory>src/main/resources</directory>
-    		<filtering>false</filtering>
-    		<excludes>
-    			<exclude>application.yml</exclude>
-    		</excludes>
-    	</resource>
-    </resources>
         <plugins>
             <!-- 把依赖的jar包拷到lib目录下 -->
             <plugin>
@@ -140,28 +131,6 @@
 
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>public</id>
-            <name>public</name>
-            <url>http://192.168.2.193:8091/nexus/content/groups/public/</url>
-            <releases>
-            </releases>
-            <snapshots>
-            </snapshots>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>releases</name>
-            <url>http://192.168.2.193:8091/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>snapshots</name>
-            <url>http://192.168.2.193:8091/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+   
 
 </project>
