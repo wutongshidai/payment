@@ -30,7 +30,7 @@ public class PaymentController {
     private BidService bidService;
     
     @RequestMapping("/tender/pay")
-    @AuthLogin
+//    @AuthLogin
     public ResponseResult tenderPay(@RequestParam("orderId") String orderId) {
         ResponseResult responseResult = new ResponseResult();
        Bid_order bid_order = bidService.getMyBidById(orderId);
