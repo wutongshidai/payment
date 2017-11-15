@@ -2,6 +2,7 @@ package com.wutong.tender.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.parasol.core.Enum.TenderStatusEnum;
+import com.parasol.core.bid.Bid_info;
 import com.parasol.core.bid.Bid_order;
 import com.parasol.core.service.BidService;
 import com.parasol.core.service.TenderService;
@@ -46,6 +47,10 @@ public class TenderController {
         result.put("endDate", date);
         Integer id = tender.getId();
         List<Bid_order> list = bidService.selectOrderByTid(id);
+        for (int i =0; i<list.size(); i++){
+            Integer bidInfoid = list.get(i).getBidInfoid();
+            Bid_info bid_info =  bidService.selectInfoById(bidInfoid);
+        }
         result.put("olist",list);
 
         TenderStatusEnum code = TenderStatusEnum.getByCode(tender.getClassification());
