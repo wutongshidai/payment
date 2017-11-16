@@ -77,7 +77,7 @@ public class BidController {
             // 生成投标订单号。插入数据库
             String bidOrderId = OrderUtil.getBidOrderId();
             BeanUtils.populate(bidOrder,orderMap);
-            bidOrder.setBidBond(0.01);
+            bidOrder.setBidBond(tenderMoney);
             bidOrder.setId(bidOrderId);
             bidOrder.setBidInfoid(infoId);
             bidOrder.setTenUserid(tender.getUserid());
