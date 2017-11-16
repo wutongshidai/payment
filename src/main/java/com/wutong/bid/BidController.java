@@ -131,8 +131,8 @@ public class BidController {
         Map map = new HashMap();
         List<Bid_order> list = bidService.getMyBids(userId);
         List  arr= new ArrayList();
-        TenderBid tenderBid =new TenderBid();
         for (Bid_order bidOrder: list) {
+            TenderBid tenderBid =new TenderBid();
             Integer tenderId = bidOrder.getTenderid();
             Tender tender = tenderService.selectByPrimaryKey(tenderId);
             String projectName = tender.getProjectName();
