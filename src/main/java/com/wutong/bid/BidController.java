@@ -57,19 +57,22 @@ public class BidController {
             Bid_info bidInfo = new Bid_info();
            System.out.println(orderMap.get("bidInfoid")); 
             String Id = (String)orderMap.get("bidInfoid");
-            Integer bid_infoId = Integer.parseInt(Id);
-            String comUserid1 = (String)orderMap.get("comUserid");
-            Integer comUserid = Integer.parseInt(comUserid1);
             Integer infoId = null;
             // 投标信息表id为空，没有信息。新建信息数据
             BeanUtils.populate(bidInfo, orderMap);
-            if (bid_infoId == null) {
+        	System.out.println("#####写入联系人信息。。。");
+            Integer bid_infoId = null;
+            if (Id == null ||"null".equals(Id)) { 
+            	
                 bidInfo.setCreattime(new Date());
                 infoId = bidService.createInfo(bidInfo);
+            	System.out.println("#####创建联系人信息成功。。。");
             }else {  // 有投标信息表ID 更新数据
+            	bid_infoId = Integer.parseInt(Id);
                 infoId = bid_infoId;
                 bidInfo.setUpdatetime(new Date());
                 int i =  bidService.updateInfo(bidInfo);
+            	System.out.println("#####更新联系人信息成功。。。");
             }
             String tenderId = (String)orderMap.get("tenderid");
             Tender tender = tenderService.selectByPrimaryKey(Integer.parseInt(tenderId));
@@ -88,10 +91,8 @@ public class BidController {
             if (i == 1) {
               map.put("BidOrderId", bidOrderId);
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
         }
         ResponseResult responseResult = new ResponseResult();
         responseResult.addData(map);
