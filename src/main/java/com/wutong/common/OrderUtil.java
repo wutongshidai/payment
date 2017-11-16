@@ -19,6 +19,6 @@ public class OrderUtil {
         String uuid = UUID.randomUUID().toString().split("-")[0];
         String s = format + uuid;
         System.out.println(s);
-        return "s";
+        return s;
     }
 }

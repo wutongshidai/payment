@@ -49,12 +49,17 @@ public class BidController {
      */
     @RequestMapping(value = "/placeOrder")
 //    @AuthLogin
-    public ResponseResult placeOrder (Map orderMap) {
+    public ResponseResult placeOrder (@RequestParam Map orderMap) {
             Map map = new HashMap();
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         try {
             Bid_order bidOrder = new Bid_order();
             Bid_info bidInfo = new Bid_info();
-            Integer bid_infoId =(Integer) orderMap.get("bid_infoId");
+           System.out.println(orderMap.get("bidInfoid")); 
+            String Id = (String)orderMap.get("bidInfoid");
+            Integer bid_infoId = Integer.parseInt(Id);
+            String comUserid1 = (String)orderMap.get("comUserid");
+            Integer comUserid = Integer.parseInt(comUserid1);
             Integer infoId = null;
             // 投标信息表id为空，没有信息。新建信息数据
             BeanUtils.populate(bidInfo, orderMap);
@@ -63,10 +68,11 @@ public class BidController {
                 infoId = bidService.createInfo(bidInfo);
             }else {  // 有投标信息表ID 更新数据
                 infoId = bid_infoId;
-               int i =  bidService.updateInfo(bidInfo);
+                bidInfo.setUpdatetime(new Date());
+                int i =  bidService.updateInfo(bidInfo);
             }
-            Integer tenderId = (Integer)orderMap.get("tenderId");
-            Tender tender = tenderService.selectByPrimaryKey(tenderId);
+            String tenderId = (String)orderMap.get("tenderid");
+            Tender tender = tenderService.selectByPrimaryKey(Integer.parseInt(tenderId));
             Double tenderMoney = tender.getTenderMoney();
             // 生成投标订单号。插入数据库
             String bidOrderId = OrderUtil.getBidOrderId();
@@ -74,10 +80,12 @@ public class BidController {
             bidOrder.setBidBond(tenderMoney);
             bidOrder.setId(bidOrderId);
             bidOrder.setBidInfoid(infoId);
+            bidOrder.setTenUserid(tender.getUserid());
             Date date = new Date();
             bidOrder.setCreattime(date);
             int i= bidService.insertOrder(bidOrder);
-            if (i==1) {
+            System.out.println(i);
+            if (i == 1) {
               map.put("BidOrderId", bidOrderId);
             }
         } catch (IllegalAccessException e) {
