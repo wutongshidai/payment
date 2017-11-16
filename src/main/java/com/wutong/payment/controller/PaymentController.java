@@ -73,14 +73,15 @@ public class PaymentController {
                 }
             }
             // 乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
-            try {
-                valueStr = new StringBuilder(new String(valueStr.toString().getBytes("ISO-8859-1"), "gbk"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                valueStr = new StringBuilder(new String(valueStr.toString().getBytes("ISO-8859-1"), "utf-8"));
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
             params.put(name, valueStr.toString());
         }
-
+        System.out.println("获取回调参数结束。。。。。。。。。。。。。。。。。。。");
+        System.out.println(params);
         // 订单号
         String orderCode = null;
         try {
@@ -93,6 +94,7 @@ public class PaymentController {
         // 计算得出通知验证结果
         boolean verifyResult = alipayService.rsaCheck(params);
         if (verifyResult) { //验签成功， 修改订单状态, 并通知支付宝响应成功
+        	System.out.println("验签成功。。。。。。。。。。。。。。。。。。。。。。");
             Bid_order bid_order = bidService.getMyBidById(orderCode);
             bid_order.setPayStatus(1);
             int status = bidService.updateOrder(bid_order);
@@ -107,6 +109,8 @@ public class PaymentController {
                     e.printStackTrace();
                 }
             }
+        } else {
+        	System.out.println("验签失败，请查询原因。。。。。。。。。。。。。");
         }
     }
 }
