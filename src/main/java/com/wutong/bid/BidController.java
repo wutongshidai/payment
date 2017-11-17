@@ -62,7 +62,7 @@ public class BidController {
             BeanUtils.populate(bidInfo, orderMap);
         	System.out.println("#####写入联系人信息。。。");
             Integer bid_infoId = null;
-            if (Id == null ||"null".equals(Id)) { 
+            if (Id == null || "null".equals(Id)) {
             	
                 bidInfo.setCreattime(new Date());
                 infoId = bidService.createInfo(bidInfo);
@@ -71,6 +71,7 @@ public class BidController {
             	bid_infoId = Integer.parseInt(Id);
                 infoId = bid_infoId;
                 bidInfo.setUpdatetime(new Date());
+                bidInfo.setId(infoId);
                 int i =  bidService.updateInfo(bidInfo);
             	System.out.println("#####更新联系人信息成功。。。");
             }
@@ -131,8 +132,8 @@ public class BidController {
         Map map = new HashMap();
         List<Bid_order> list = bidService.getMyBids(userId);
         List  arr= new ArrayList();
-        TenderBid tenderBid =new TenderBid();
         for (Bid_order bidOrder: list) {
+            TenderBid tenderBid =new TenderBid();
             Integer tenderId = bidOrder.getTenderid();
             Tender tender = tenderService.selectByPrimaryKey(tenderId);
             String projectName = tender.getProjectName();

@@ -8,7 +8,7 @@ spring:
   dubbo:
     scan: com.wutong
     registry:
-      address: zookeeper://192.168.3.189:2182
+      address: zookeeper://127.0.0.1:2181
     application:
       name: wutong-payment
     module:
@@ -30,9 +30,20 @@ spring:
     multipart: # 文件上传限制
       max-file-size: 100KB
       max-request-size: 1MB
+  devtools:
+    restart:
+      enabled: false
 
 logging:
   level:
-    root: info
+    root: debug
+    
+weixin: 
+  app-id: wx3016335d2d4d60c6
+  mch-id: 1493205162
+  mch-key: 329E8AA366CFC70F93747A74D8EB1BA6
+  notify-url: http://aimeryaya.oicp.io:21593/api/wxpay/callback
+  trade-type: NATIVE
+  
 
 
