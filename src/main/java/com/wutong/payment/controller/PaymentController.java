@@ -39,8 +39,13 @@ public class PaymentController {
             return responseResult;
         }
 
+        
+        //验证支付状态
         int paystatus = bid_order.getPayStatus();
         if (paystatus == 0) {
+        	
+        	//识别支付渠道
+        	
             String form = alipayService.pay(bid_order.getId(), "", new BigDecimal(bid_order.getBidBond()), "投标保证金", null);
             responseResult.addData(form);
 
@@ -97,6 +102,7 @@ public class PaymentController {
         	System.out.println("验签成功。。。。。。。。。。。。。。。。。。。。。。");
             Bid_order bid_order = bidService.getMyBidById(orderCode);
             bid_order.setPayStatus(1);
+            bid_order.setPayChannel("ALIPAY");
             int status = bidService.updateOrder(bid_order);
             try {
                 response.getWriter().write("success");
