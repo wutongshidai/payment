@@ -39,6 +39,12 @@
             <groupId>com.wutong</groupId>
             <artifactId>framework</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+            <exclusions>
+            	<exclusion>
+            		<groupId>commons-lang</groupId>
+            		<artifactId>commons-lang</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>cn.itcast.parasol</groupId>
@@ -54,6 +60,17 @@
             <groupId>cn.itcast.parasol</groupId>
             <artifactId>parasol-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.apache.commons</groupId>
+            		<artifactId>commons-lang3</artifactId>
+            	</exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.wutong</groupId>
+            <artifactId>wxpay-core</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

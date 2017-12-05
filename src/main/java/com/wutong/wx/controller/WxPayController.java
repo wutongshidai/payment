@@ -34,10 +34,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSException;
 import com.parasol.common.oss.OSSObjectUtils;
-import com.parasol.core.bid.BidOrderPayLog;
+//import com.parasol.core.bid.BidOrderPayLog;
 import com.parasol.core.bid.Bid_order;
 import com.parasol.core.bid.WxQrcode;
-import com.parasol.core.service.BidOrderPayLogService;
+//import com.parasol.core.service.BidOrderPayLogService;
 import com.parasol.core.service.BidService;
 import com.parasol.core.service.WxQrcodeService;
 import com.wutong.framework.core.web.common.http.HttpStatus;
@@ -50,7 +50,7 @@ import com.wutong.wxpay.core.result.WxPayOrderQueryResult;
 import com.wutong.wxpay.core.result.WxPayUnifiedOrderResult;
 import com.wutong.wxpay.core.service.WxPayService;
 import com.wutong.wxpay.core.util.qrcode.QrcodeUtils;
-import com.wutong.wxpay.service.AsyncService;
+//import com.wutong.wxpay.service.AsyncService;
 
 @RestController
 @RequestMapping("/wxpay")
@@ -63,13 +63,8 @@ public class WxPayController {
 	private BidService bidService;
 	
 	@Reference
-	private BidOrderPayLogService bidOrderPayLogService;
-	
-	@Reference
 	private WxQrcodeService wxQrcodeService;
 	
-	@Autowired
-	private AsyncService asyncService;
 	
 //	@Autowired
 //	private RedisTemplate<String, Object> redisTemplate;
