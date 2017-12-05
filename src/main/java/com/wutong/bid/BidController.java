@@ -31,7 +31,7 @@ public class BidController {
      * @return map
      */
     @RequestMapping(value = "/bidInfo")
-//    @AuthLogin
+    @AuthLogin
     public ResponseResult queryBidInfo (String com_userId) {
         int i = Integer.parseInt(com_userId);
         Map map = new HashMap();
@@ -48,7 +48,7 @@ public class BidController {
      * 确认信息下单
      */
     @RequestMapping(value = "/placeOrder")
-//    @AuthLogin
+    @AuthLogin
     public ResponseResult placeOrder (@RequestParam Map orderMap) {
             Map map = new HashMap();
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -105,7 +105,7 @@ public class BidController {
      * 订单付款成功
      */
     @RequestMapping(value = "/orderSuccess")
-//    @AuthLogin
+    @AuthLogin
     public ResponseResult orderSuccess (Map orderMap) {
         Bid_order bid_order = new Bid_order();
         try {
@@ -126,7 +126,7 @@ public class BidController {
      * 我的投标查询
      */
     @RequestMapping(value = "/getMyBid",method = {RequestMethod.GET})
-//    @AuthLogin
+    @AuthLogin
     public ResponseResult getMyBid (String com_userId) {
         int userId = Integer.parseInt(com_userId);
         Map map = new HashMap();
@@ -136,10 +136,12 @@ public class BidController {
             TenderBid tenderBid =new TenderBid();
             Integer tenderId = bidOrder.getTenderid();
             Tender tender = tenderService.selectByPrimaryKey(tenderId);
-            String projectName = tender.getProjectName();
-            tenderBid.setBidOrder(bidOrder);
-            tenderBid.setProjectName(projectName);
-            arr.add(tenderBid);
+            if (tender !=null){
+                String projectName = tender.getProjectName();
+                tenderBid.setBidOrder(bidOrder);
+                tenderBid.setProjectName(projectName);
+                arr.add(tenderBid);
+            }
         }
         map.put("Bid", arr);
         ResponseResult responseResult = new ResponseResult();
