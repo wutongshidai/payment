@@ -1,5 +1,18 @@
 package com.wutong.bid;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.parasol.core.bid.Bid_info;
 import com.parasol.core.bid.Bid_order;
@@ -10,11 +23,7 @@ import com.parasol.core.tender.Tender;
 import com.wutong.common.OrderUtil;
 import com.wutong.framework.core.web.auth.aop.annotation.AuthLogin;
 import com.wutong.framework.core.web.common.http.ResponseResult;
-import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
 
 @RestController
 @RequestMapping("/bid")
@@ -30,8 +39,9 @@ public class BidController {
      * 查询投标用户信息
      * @return map
      */
-    @RequestMapping(value = "/bidInfo")
-    @AuthLogin
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/bidInfo")
+//    @AuthLogin
     public ResponseResult queryBidInfo (String com_userId) {
         int i = Integer.parseInt(com_userId);
         Map map = new HashMap();
@@ -48,7 +58,7 @@ public class BidController {
      * 确认信息下单
      */
     @RequestMapping(value = "/placeOrder")
-    @AuthLogin
+//    @AuthLogin
     public ResponseResult placeOrder (@RequestParam Map orderMap) {
             Map map = new HashMap();
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -105,7 +115,7 @@ public class BidController {
      * 订单付款成功
      */
     @RequestMapping(value = "/orderSuccess")
-    @AuthLogin
+//    @AuthLogin
     public ResponseResult orderSuccess (Map orderMap) {
         Bid_order bid_order = new Bid_order();
         try {
@@ -121,32 +131,6 @@ public class BidController {
         ResponseResult result = new ResponseResult();
         result.addData(orderMap);
         return result;
-    }
-    /**
-     * 我的投标查询
-     */
-    @RequestMapping(value = "/getMyBid",method = {RequestMethod.GET})
-    @AuthLogin
-    public ResponseResult getMyBid (String com_userId) {
-        int userId = Integer.parseInt(com_userId);
-        Map map = new HashMap();
-        List<Bid_order> list = bidService.getMyBids(userId);
-        List  arr= new ArrayList();
-        for (Bid_order bidOrder: list) {
-            TenderBid tenderBid =new TenderBid();
-            Integer tenderId = bidOrder.getTenderid();
-            Tender tender = tenderService.selectByPrimaryKey(tenderId);
-            if (tender !=null){
-                String projectName = tender.getProjectName();
-                tenderBid.setBidOrder(bidOrder);
-                tenderBid.setProjectName(projectName);
-                arr.add(tenderBid);
-            }
-        }
-        map.put("Bid", arr);
-        ResponseResult responseResult = new ResponseResult();
-        responseResult.addData(map);
-        return responseResult;
     }
 
     /**
