@@ -29,7 +29,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -49,12 +48,12 @@
         <dependency>
             <groupId>cn.itcast.parasol</groupId>
             <artifactId>parasol-interface</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cn.itcast.parasol</groupId>
             <artifactId>parasol-pojo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>cn.itcast.parasol</groupId>
@@ -71,6 +70,11 @@
             <groupId>com.wutong</groupId>
             <artifactId>wxpay-core</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+        	<groupId>com.wutong</groupId>
+        	<artifactId>datacenter-client</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -173,12 +177,12 @@
         <repository>
             <id>releases</id>
             <name>releases</name>
-            <url>http://192.168.3.189:8078/repository/maven-public/</url>
+            <url>http://192.168.3.189:8078/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>snapshots</name>
-            <url>http://192.168.3.189:8078/repository/maven-public/</url>
+            <url>http://192.168.3.189:8078/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
